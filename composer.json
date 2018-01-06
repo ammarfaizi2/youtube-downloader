@@ -10,5 +10,12 @@
         }
     ],
     "minimum-stability": "stable",
-    "require": {}
+    "autoload": {
+        "psr-4": {
+            "YoutubeDownloader\\": "src/YoutubeDownloader/"
+        }
+    },
+    "bin": [
+        "bin/halt_compiler"
+    ]
 }
