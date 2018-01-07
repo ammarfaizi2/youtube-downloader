@@ -48,7 +48,12 @@ class Youtube
 		return $result;
 	}
 
-	public function download($path = ".", $format = "")
+	/**
+	 * @param string $path
+	 * @param int $format
+	 * @return mixed
+	 */
+	public function download($path = ".", $format = null)
 	{
 		$path = realpath($path);
 		if (empty($path)) {
@@ -57,8 +62,16 @@ class Youtube
 			if (! is_numeric($format)) {
 				throw new Exception("Invalid format!");
 			} else {
-				print shell_exec($this->bin." ".$this->url." -f ".$format." 2>&1");
+				$format = "-f ".$format;
+				$stdout = shell_exec("cd ".$path." && ".$this->bin." ".$this->url." ".$format." 2>&1");
+				if (strpos($stdout, "ERROR: requested format not available") !== false) {
+					throw new Exception("Error: requested format not available", 1);
+				}
 			}
 		}
+		if (preg_match("/Destination:\s(.*)\\n/", $stdout, $matches) and isset($matches[1])) {
+			return $matches[1];
+		}
+		return false;
 	}
 }
