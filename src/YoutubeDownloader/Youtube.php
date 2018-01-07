@@ -2,7 +2,7 @@
 
 namespace YoutubeDownloader;
 
-use Exception;
+use YoutubeDownloader\YoutubeDownloaderException;
 
 /**
  * @author Ammar Faizi <ammarfaizi2@gmail.com>
@@ -49,6 +49,7 @@ class Youtube
 	}
 
 	/**
+	 * @throws \YoutubeDownloader\YoutubeDownloaderException
 	 * @param string $path
 	 * @param int $format
 	 * @return mixed
@@ -57,15 +58,15 @@ class Youtube
 	{
 		$path = realpath($path);
 		if (empty($path)) {
-			throw new Exception("Invalid path!");
+			throw new YoutubeDownloaderException("Invalid path!");
 		} else {
 			if (! is_numeric($format)) {
-				throw new Exception("Invalid format!");
+				throw new YoutubeDownloaderException("Invalid format!");
 			} else {
 				$format = "-f ".$format;
 				$stdout = shell_exec("cd ".$path." && ".$this->bin." ".$this->url." ".$format." 2>&1");
 				if (strpos($stdout, "ERROR: requested format not available") !== false) {
-					throw new Exception("Error: requested format not available", 1);
+					throw new YoutubeDownloaderException("Error: requested format not available", 1);
 				}
 			}
 		}
