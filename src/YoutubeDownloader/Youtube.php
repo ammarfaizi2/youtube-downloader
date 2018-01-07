@@ -51,7 +51,7 @@ class Youtube
 	/**
 	 * @throws	\YoutubeDownloader\YoutubeDownloaderException
 	 * @param	string	$path
-	 * @param	int		$format
+	 * @param	int	$format
 	 * @return	mixed
 	 */
 	public function download($path = ".", $format = null)
