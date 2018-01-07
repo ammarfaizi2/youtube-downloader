@@ -49,10 +49,10 @@ class Youtube
 	}
 
 	/**
-	 * @throws \YoutubeDownloader\YoutubeDownloaderException
-	 * @param string $path
-	 * @param int $format
-	 * @return mixed
+	 * @throws	\YoutubeDownloader\YoutubeDownloaderException
+	 * @param	string	$path
+	 * @param	int		$format
+	 * @return	mixed
 	 */
 	public function download($path = ".", $format = null)
 	{
